@@ -1,0 +1,10 @@
+<p><%= @share.errors.full_messages.join(', ') %></p>
+
+<%= form_for @share do |s| %>
+  <div class="">
+    <%= s.label :title %>
+    </br>
+    <%= s.text_field :title %>
+  </div>
+  <%= s.submit %>
+<% end %>
