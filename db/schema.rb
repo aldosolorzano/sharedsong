@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170312021849) do
+ActiveRecord::Schema.define(version: 20170314022932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,28 @@ ActiveRecord::Schema.define(version: 20170312021849) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "artist"
+    t.integer  "song_id"
+    t.index ["song_id"], name: "index_shares_on_song_id", using: :btree
     t.index ["user_id"], name: "index_shares_on_user_id", using: :btree
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.string   "artist"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist"], name: "index_songs_on_artist", using: :btree
+    t.index ["name"], name: "index_songs_on_name", using: :btree
+  end
+
+  create_table "user_shares", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "share_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["share_id"], name: "index_user_shares_on_share_id", using: :btree
+    t.index ["user_id"], name: "index_user_shares_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -33,5 +54,8 @@ ActiveRecord::Schema.define(version: 20170312021849) do
     t.index ["email"], name: "index_users_on_email", using: :btree
   end
 
+  add_foreign_key "shares", "songs"
   add_foreign_key "shares", "users"
+  add_foreign_key "user_shares", "shares"
+  add_foreign_key "user_shares", "users"
 end
