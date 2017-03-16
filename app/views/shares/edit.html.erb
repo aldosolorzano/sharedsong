@@ -1,4 +1,3 @@
-<h1>New Share</h1>
 <p><%= @share.errors.full_messages.join(', ') %></p>
 
 <%= form_for @share do |s| %>
@@ -16,10 +15,10 @@
   <div class="">
     <%= s.label :shared_user_ids %>
     <%= s.collection_check_boxes :shared_user_ids, User.all, :id, :first_name do |b| %>
-      <div class='user-wrapper'>
-        <%= b.check_box %>
-        <%= b.text %>
-      </div>
+    <div class="tag-wrapper">
+      <%= b.check_box %>
+      <%= b.text %>
+    </div>
     <% end %>
   </div>
 
