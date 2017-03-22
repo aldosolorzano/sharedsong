@@ -2,25 +2,15 @@
 
 <%= form_for @share do |s| %>
   <div class="">
-    <%= s.label :artist %>
+    <%= s.label 'Song'%>
     </br>
     <%= s.text_field :artist %>
   </div>
   <%= s.submit'search' %>
 <% end %>
 <hr>
-
-<% if @albums.presence %>
-  <%= @id %>
-  <% @albums.each do |album| %>
-  <div class="">
-    <h3><%= album.name %></h3>
-    <% album.tracks.each do |track| %>
-      <p><%= track.name %></p>
-    <% end %>
-  </div>
-  <hr>
-  <% end %>
-
-<% else %>
-<% end %>
+  <iframe src="https://embed.spotify.com/?uri=<%= @song.uri%>" frameborder="0" allowtransparency="true"></iframe>
+  <p><strong>Id</strong> <%= @song.id %></p>
+  <p><strong>Preview</strong> <%= @song.preview_url %></p>
+  <p><strong>Artist</strong> <%= @song.artists.first.name %></p>
+  <p><strong>Song</strong> <%= @song.name %></p>

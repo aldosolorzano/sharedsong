@@ -29,10 +29,10 @@ class SharesController < ApplicationController
     # end
     @share = Share.new
     # @song = params[:share][:title]
-    response = RSpotify::Artist.search(params[:share][:artist])
+    response = RSpotify::Track.search(params[:share][:artist])
     # @id = response.first.id
-    @albums = response.first.albums
-    # render json: response
+    @song = response.first
+    # render json: @song
     # redirect_to new_share_path
     render :new
   end
