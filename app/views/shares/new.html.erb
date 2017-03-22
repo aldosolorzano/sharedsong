@@ -1,5 +1,4 @@
 <h1>New Share</h1>
-<p><%= @share.errors.full_messages.join(', ') %></p>
 
 <%= form_for @share do |s| %>
   <div class="">
@@ -7,21 +6,21 @@
     </br>
     <%= s.text_field :artist %>
   </div>
-  <div class="">
-    <%= s.label :title %>
-    </br>
-    <%= s.text_field :title %>
-  </div>
+  <%= s.submit'search' %>
+<% end %>
+<hr>
 
+<% if @albums.presence %>
+  <%= @id %>
+  <% @albums.each do |album| %>
   <div class="">
-    <%= s.label :shared_user_ids %>
-    <%= s.collection_check_boxes :shared_user_ids, User.all, :id, :first_name do |b| %>
-      <div class='user-wrapper'>
-        <%= b.check_box %>
-        <%= b.text %>
-      </div>
+    <h3><%= album.name %></h3>
+    <% album.tracks.each do |track| %>
+      <p><%= track.name %></p>
     <% end %>
   </div>
+  <hr>
+  <% end %>
 
-  <%= s.submit %>
+<% else %>
 <% end %>

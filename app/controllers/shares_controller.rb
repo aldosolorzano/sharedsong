@@ -17,16 +17,24 @@ class SharesController < ApplicationController
   end
 
   def create
-    share_params = params.require(:share).permit(:title, :artist,{shared_user_ids:[]})
-    @share = Share.new share_params
-    @share.user = current_user
-    @share.song = Song.find_by(name: params[:title])
-
-    if @share.save
-      redirect_to root_path, notice:'Share created'
-    else
-      render :new
-    end
+    # share_params = params.require(:share).permit(:title, :artist,{shared_user_ids:[]})
+    # @share = Share.new share_params
+    # @share.user = current_user
+    # @share.song = Song.find_by(name: params[:title])
+    #
+    # if @share.save
+    #   redirect_to root_path, notice:'Share created'
+    # else
+    #   render :new
+    # end
+    @share = Share.new
+    # @song = params[:share][:title]
+    response = RSpotify::Artist.search(params[:share][:artist])
+    # @id = response.first.id
+    @albums = response.first.albums
+    # render json: response
+    # redirect_to new_share_path
+    render :new
   end
 
   def update

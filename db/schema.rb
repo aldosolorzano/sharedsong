@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314022932) do
+ActiveRecord::Schema.define(version: 20170317070809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friends", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "friend_id"
+    t.index ["user_id"], name: "index_friends_on_user_id", using: :btree
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.string   "friendable_type"
+    t.integer  "friendable_id"
+    t.integer  "friend_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "blocker_id"
+    t.integer  "status"
+  end
 
   create_table "shares", force: :cascade do |t|
     t.string   "title"
@@ -51,9 +69,12 @@ ActiveRecord::Schema.define(version: 20170314022932) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.text     "spotify_hash"
     t.index ["email"], name: "index_users_on_email", using: :btree
   end
 
+  add_foreign_key "friends", "users"
+  add_foreign_key "friends", "users", column: "friend_id", on_delete: :cascade
   add_foreign_key "shares", "songs"
   add_foreign_key "shares", "users"
   add_foreign_key "user_shares", "shares"
