@@ -9,8 +9,13 @@
   <%= s.submit'search' %>
 <% end %>
 <hr>
+
+<% if @song != nil %>
+
   <iframe src="https://embed.spotify.com/?uri=<%= @song.uri%>" frameborder="0" allowtransparency="true"></iframe>
   <p><strong>Id</strong> <%= @song.id %></p>
   <p><strong>Preview</strong> <%= @song.preview_url %></p>
   <p><strong>Artist</strong> <%= @song.artists.first.name %></p>
   <p><strong>Song</strong> <%= @song.name %></p>
+
+<% end %>
