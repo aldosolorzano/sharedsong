@@ -1,5 +1,12 @@
 class UsersController < ApplicationController
 
+  def spotify
+    @spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
+    artists = RSpotify::Artist.search('Nicolas Jaar')
+    @current_artist = artists.first
+
+  end
+
   def new
     @user = User.new
   end

@@ -4,7 +4,6 @@ class SharesController < ApplicationController
 
   def index
     @shared_songs = current_user.shared_songs
-    # @shares = Share.order(created_at: :desc)
     @shares = current_user.shares.order(created_at: :desc)
   end
 
@@ -17,16 +16,37 @@ class SharesController < ApplicationController
   end
 
   def create
-    share_params = params.require(:share).permit(:title, :artist,{shared_user_ids:[]})
-    @share = Share.new share_params
-    @share.user = current_user
-    @share.song = Song.find_by(name: params[:title])
+    # share_params = params.require(:share).permit(:title, :artist,{shared_user_ids:[]})
+    # @share = Share.new share_params
+    # @share.user = current_user
+    # @share.song = Song.find_by(name: params[:title])
+    #
+    # if @share.save
+    #   redirect_to root_path, notice:'Share created'
+    #
+    # else
+    #   render :new
+    #
+    # end
 
-    if @share.save
-      redirect_to root_path, notice:'Share created'
+    @share = Share.new
+    search_term = params[:share][:artist]
+    search_cache_query = SearchCache.where("search_term ILIKE ?", "%#{search_term}%")
+    if search_cache_query.empty?
+      response = RSpotify::Track.search(search_term)
+      json_response = response.first.to_json
+
+      if json_response != "null"
+        SearchCache.create(search_term:search_term, result:json_response)
+        @song = JSON.parse json_response
+      end
+
     else
-      render :new
+      @song = JSON.parse search_cache_query.first.result
     end
+
+    # render json: @song
+    render :new
   end
 
   def update
