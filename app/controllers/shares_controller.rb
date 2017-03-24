@@ -31,9 +31,9 @@ class SharesController < ApplicationController
     response = RSpotify::Track.search(params[:share][:artist])
     # @id = response.first.id
     @song = response.first
-    render json: response
+    # render json: response
     # redirect_to new_share_path
-    # render :new
+    render :new
   end
 
   def update
