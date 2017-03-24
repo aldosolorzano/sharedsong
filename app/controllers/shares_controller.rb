@@ -28,11 +28,18 @@ class SharesController < ApplicationController
     #   render :new
     # end
     @share = Share.new
-    response = RSpotify::Track.search(params[:share][:artist])
-    # @id = response.first.id
-    @song = response.first
-    # render json: response
-    # redirect_to new_share_path
+    search_term = params[:share][:artist]
+    search_cache_query = SearchCache.where("search_term ILIKE ?", "%#{search_term}%")
+    if search_cache_query.empty?
+      response = RSpotify::Track.search(search_term)
+      json_response = response.first.to_json
+      SearchCache.create(search_term:search_term, result:json_response)
+      @song = JSON.parse json_response
+    else
+      @song = JSON.parse search_cache_query.first.result
+    end
+
+    # render json: @song
     render :new
   end
 

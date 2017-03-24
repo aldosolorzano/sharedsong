@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317070809) do
+ActiveRecord::Schema.define(version: 20170324020302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 20170317070809) do
     t.integer  "status"
   end
 
+  create_table "search_caches", force: :cascade do |t|
+    t.string   "search_term"
+    t.json     "result"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["search_term"], name: "index_search_caches_on_search_term", using: :btree
+  end
+
   create_table "shares", force: :cascade do |t|
     t.string   "title"
     t.integer  "user_id"
@@ -51,6 +59,16 @@ ActiveRecord::Schema.define(version: 20170317070809) do
     t.datetime "updated_at", null: false
     t.index ["artist"], name: "index_songs_on_artist", using: :btree
     t.index ["name"], name: "index_songs_on_name", using: :btree
+  end
+
+  create_table "user_search_histories", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "search_term"
+    t.boolean  "success"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["search_term"], name: "index_user_search_histories_on_search_term", using: :btree
+    t.index ["user_id"], name: "index_user_search_histories_on_user_id", using: :btree
   end
 
   create_table "user_shares", force: :cascade do |t|
@@ -77,6 +95,7 @@ ActiveRecord::Schema.define(version: 20170317070809) do
   add_foreign_key "friends", "users", column: "friend_id", on_delete: :cascade
   add_foreign_key "shares", "songs"
   add_foreign_key "shares", "users"
+  add_foreign_key "user_search_histories", "users"
   add_foreign_key "user_shares", "shares"
   add_foreign_key "user_shares", "users"
 end

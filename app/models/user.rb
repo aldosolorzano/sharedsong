@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :user_search_histories, dependent: :destroy
   has_many :shares, dependent: :nullify
   # setting many to many relation btwn user & shares
   has_many :user_shares, dependent: :destroy
