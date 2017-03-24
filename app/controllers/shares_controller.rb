@@ -4,7 +4,6 @@ class SharesController < ApplicationController
 
   def index
     @shared_songs = current_user.shared_songs
-    # @shares = Share.order(created_at: :desc)
     @shares = current_user.shares.order(created_at: :desc)
   end
 

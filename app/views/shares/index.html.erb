@@ -1,3 +1,29 @@
 <h1>dashboard</h1>
+<hr>
+<h2>My shares</h2>
+<% @shares.each do |s| %>
+  <h4><%= s.artist %> - <%= s.title %></h4>
+  <p><strong>shared by: </strong><%= s.user.full_name %></p>
+    <strong>Shared to: </strong>
+      <% s.shared_users.each do |u| %>
+      <a href="#">@<%= u.first_name %></a> |
+      <% end %>
+      <br>
+  <%= link_to 'delete', share_path(s), method: :delete, data: {confirm: 'Sure?'} %>
+  <%= link_to 'edit', edit_share_path(s),data: {confirm: 'Sure?'} %>
+  <hr>
+<% end %>
 
-<%= @current_artist.albums %>
+<h2>Shared by</h2>
+<% @shared_songs.each do |ss| %>
+  <h4><%= ss.artist %> - <%= ss.title %></h4>
+  <p><strong>shared by: </strong><%= ss.user.full_name %></p>
+    <strong>Shared to: </strong>
+      <% ss.shared_users.each do |u| %>
+      <a href="#">@<%= u.first_name %></a> |
+      <% end %>
+      <br>
+  <%= link_to 'delete', share_path(ss), method: :delete, data: {confirm: 'Sure?'} %>
+  <%= link_to 'edit', edit_share_path(ss),data: {confirm: 'Sure?'} %>
+  <hr>
+<% end %>
