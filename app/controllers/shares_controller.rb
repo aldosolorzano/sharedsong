@@ -23,17 +23,24 @@ class SharesController < ApplicationController
     #
     # if @share.save
     #   redirect_to root_path, notice:'Share created'
+    #
     # else
     #   render :new
+    #
     # end
+
     @share = Share.new
     search_term = params[:share][:artist]
     search_cache_query = SearchCache.where("search_term ILIKE ?", "%#{search_term}%")
     if search_cache_query.empty?
       response = RSpotify::Track.search(search_term)
       json_response = response.first.to_json
-      SearchCache.create(search_term:search_term, result:json_response)
-      @song = JSON.parse json_response
+
+      if json_response != "null"
+        SearchCache.create(search_term:search_term, result:json_response)
+        @song = JSON.parse json_response
+      end
+
     else
       @song = JSON.parse search_cache_query.first.result
     end

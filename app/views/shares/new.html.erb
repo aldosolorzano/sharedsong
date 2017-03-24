@@ -15,7 +15,35 @@
   <iframe src="https://embed.spotify.com/?uri=<%= @song["uri"]%>" frameborder="0" allowtransparency="true"></iframe>
   <p><strong>Id</strong> <%= @song["id"] %></p>
   <p><strong>Preview</strong> <%= @song["preview_url"] %></p>
-  <p><strong>Artist</strong> <%= @song["artists"].first["name"] %></p>
-  <p><strong>Song</strong> <%= @song["name"] %></p>
+  <span><strong>Artist </strong></span><p id='artist'><%= @song["artists"].first["name"] %></p>
+  <span><strong>Song </strong><p id='song'><%= @song["name"] %></p>
+  <!-- Button trigger modal -->
+  <button id='share'type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    share
+  </button>
+<% else %>
+<div class="">
 
+  <strong>Song not found</strong>
+</div>
 <% end %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="New Share" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      <%=   render "form" %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
