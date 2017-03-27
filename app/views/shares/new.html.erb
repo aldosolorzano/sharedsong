@@ -1,13 +1,13 @@
 <h1>New Share</h1>
 
-<%= form_for @share do |s| %>
+<%= form_tag search_caches_path do %>
   <div class="">
-    <%= s.label 'Song'%>
-    </br>
-    <%= s.text_field :artist %>
+    <%= label_tag :song %>
+    <%= text_field_tag :song%>
   </div>
-  <%= s.submit'search' %>
+  <%= submit_tag 'Search'%>
 <% end %>
+
 <hr>
 
 <% if @song != nil %>
@@ -16,7 +16,7 @@
   <p><strong>Id</strong> <%= @song["id"] %></p>
   <p><strong>Preview</strong> <%= @song["preview_url"] %></p>
   <span><strong>Artist </strong></span><p id='artist'><%= @song["artists"].first["name"] %></p>
-  <span><strong>Song </strong><p id='song'><%= @song["name"] %></p>
+  <span><strong>Song </strong></span><p id='song_title'><%= @song["name"] %></p>
   <!-- Button trigger modal -->
   <button id='share'type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
     share
