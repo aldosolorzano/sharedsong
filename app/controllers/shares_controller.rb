@@ -8,7 +8,7 @@ class SharesController < ApplicationController
   end
 
   def new
-    @song = params[:current_song]
+    @songs = params[:current_song]
     @share = Share.new
   end
 

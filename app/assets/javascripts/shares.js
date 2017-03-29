@@ -1,10 +1,13 @@
 $(document).ready(function(){
-  $("#share").on('click',(event)=>{
-    const artist = $("#artist").html()
-    const song = $('#song_title').html()
-    console.log(song);
+  $(".share").on('click',(event)=>{
+    const {target} =event
+    const container = $(target).attr('data-id')
+    const containerSelector = $(`[id='${container}']`);
+    const song = $(containerSelector).find('.song-name').html()
+    const artist = $(containerSelector).find('.artist-name').html()
+
     $("#form_artist").val(artist)
-    console.log($("#form_song").val(song));
+    $("#form_song").val(song);
   })
 
 })
