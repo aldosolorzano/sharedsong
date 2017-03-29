@@ -10,22 +10,26 @@
 
 <hr>
 
-<% if @song != nil %>
+<% if @songs != nil %>
+  <% @songs.each do |s| %>
+  <div class="col-md-4">
+    <iframe src="https://embed.spotify.com/?uri=<%= s[:uri]%>" frameborder="0" allowtransparency="true"></iframe>
+    <br>
+    <div id='<%= s[:artist_name] %>-<%= s[:song_name] %>' class="">
+      <strong>Artist </strong><p class='artist-name'><%= s[:artist_name] %></p>
+      <strong>Song </strong><p class='song-name'><%= s[:song_name] %></p>
 
-  <iframe src="https://embed.spotify.com/?uri=<%= @song["uri"]%>" frameborder="0" allowtransparency="true"></iframe>
-  <p><strong>Id</strong> <%= @song["id"] %></p>
-  <p><strong>Preview</strong> <%= @song["preview_url"] %></p>
-  <span><strong>Artist </strong></span><p id='artist'><%= @song["artists"].first["name"] %></p>
-  <span><strong>Song </strong></span><p id='song_title'><%= @song["name"] %></p>
-  <!-- Button trigger modal -->
-  <button id='share'type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    share
-  </button>
+    </div>
+    <!-- Button trigger modal -->
+    <button id='share'type="button" data-id='<%= s[:artist_name] %>-<%= s[:song_name] %>' class="btn share btn-primary" data-toggle="modal" data-target="#myModal">
+      share
+    </button>
+  </div>
+  <% end %>
 <% else %>
-<div class="">
-
-  <strong>Song not found</strong>
-</div>
+  <div class="">
+    <strong>Song not found</strong>
+  </div>
 <% end %>
 
 

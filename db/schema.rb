@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20170327062107) do
 
   create_table "search_caches", force: :cascade do |t|
     t.string   "search_term"
-    t.json     "result"
+    t.text     "result"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["search_term"], name: "index_search_caches_on_search_term", using: :btree

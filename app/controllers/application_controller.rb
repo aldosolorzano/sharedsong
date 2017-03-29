@@ -9,22 +9,24 @@ class ApplicationController < ActionController::Base
     query = SearchCache.where("search_term ILIKE ?", "%#{search_term}%")
     if query.empty?
       @song = connect_spotify search_term
+      # render json: @song
       redirect_to new_share_path({current_song:@song})
     else
-      @song = JSON.parse query.first.result
+      @song = query.first.create_array_of_songs
       redirect_to new_share_path({current_song:@song})
     end
   end
 
 
   def connect_spotify search_term
-    response = RSpotify::Track.search(search_term)
+    spotify_response = RSpotify::Track.search(search_term)
     # byebug
-    json_response = response.first.to_json
-
-    if json_response != "null"
-      SearchCache.create(search_term:search_term, result:json_response)
-      JSON.parse json_response
+    if spotify_response != "null"
+      search_cache_song = SearchCache.create(
+                              search_term: search_term,
+                              result: spotify_response
+                              )
+      search_cache_song.create_array_of_songs
     end
   end
 
