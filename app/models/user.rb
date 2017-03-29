@@ -6,6 +6,9 @@ class User < ApplicationRecord
   has_many :user_shares, dependent: :destroy
   has_many :shared_songs, through: :user_shares, source: :share
 
+  has_many :likes, dependent: :destroy
+  has_many :liked_shares, through: :likes, source: :share
+
   has_friendship
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
