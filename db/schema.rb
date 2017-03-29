@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324020302) do
+ActiveRecord::Schema.define(version: 20170327062107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20170324020302) do
     t.datetime "updated_at"
     t.integer  "blocker_id"
     t.integer  "status"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "share_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["share_id"], name: "index_likes_on_share_id", using: :btree
+    t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
   end
 
   create_table "search_caches", force: :cascade do |t|
@@ -93,6 +102,8 @@ ActiveRecord::Schema.define(version: 20170324020302) do
 
   add_foreign_key "friends", "users"
   add_foreign_key "friends", "users", column: "friend_id", on_delete: :cascade
+  add_foreign_key "likes", "shares"
+  add_foreign_key "likes", "users"
   add_foreign_key "shares", "songs"
   add_foreign_key "shares", "users"
   add_foreign_key "user_search_histories", "users"
