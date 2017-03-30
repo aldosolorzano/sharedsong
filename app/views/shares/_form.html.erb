@@ -1,26 +1,32 @@
 <p><%= @share.errors.full_messages.join(', ') %></p>
 
 <%= form_for @share do |s| %>
-  <div class="">
+  <div class="form-group">
     <%= s.label :artist %>
     </br>
-    <%= s.text_field :artist,id:'form_artist' %>
+    <%= s.text_field :artist,id:'form_artist',class:'form-control' %>
   </div>
-  <div class="">
+  <div class="form-group">
     <%= s.label :title %>
     </br>
-    <%= s.text_field :title,id:'form_song' %>
+    <%= s.text_field :title,id:'form_song',class:'form-control' %>
   </div>
 
-  <div class="">
-    <%= s.label :shared_user_ids %>
-    <%= s.collection_check_boxes :shared_user_ids, User.all, :id, :first_name do |b| %>
-      <div class='user-wrapper'>
-        <%= b.check_box %>
-        <%= b.text %>
-      </div>
-    <% end %>
+  <div class="form-group">
+    <%= s.label 'friends' %>
+    <%= s.collection_select :shared_user_ids,
+                            current_user.friends,
+                            :id, :first_name,
+                            {},
+                            { multiple:true,
+                              class:'form-control chosen-select'} do |b| %>
+        <div class='user-wrapper'>
+          <%= b.check_box %>
+          <%= b.text %>
+        </div>
+      <% end %>
   </div>
-
-  <%= s.submit %>
+  <div class="modal-footer">
+    <%= s.submit 'Create Share',class:'btn btn-primary' %>
+  </div>
 <% end %>
