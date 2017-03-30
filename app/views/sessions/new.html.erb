@@ -1,14 +1,14 @@
 <h1>Log in</h1>
 
 <%= form_tag sessions_path do %>
-  <div class="">
+  <div class="form-group">
     <%= label_tag :email %>
-    <%= text_field_tag :email%>
+    <%= text_field_tag :email,"",class: 'form-control'%>
   </div>
-  <div class="">
+  <div class="form-group">
     <%= label_tag :password %>
-    <%= password_field_tag :password%>
+    <%= password_field_tag :password,"",class: 'form-control'%>
   </div>
-  <%= submit_tag 'Sign in'%>
+  <%= submit_tag 'Sign in',class:'btn btn-success'%>
 <% end %>
 <%= link_to 'Sign in with Spotify', '/auth/spotify' %>
