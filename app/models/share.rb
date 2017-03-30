@@ -12,5 +12,12 @@ class Share < ApplicationRecord
   validates :title, presence:true
   validates :artist, presence:true
 
+  def liked_by(user)
+    likes.exists?(user:user)
+  end
+
+  def liked_for(user)
+    likes.find_by(user: user)
+  end
 
 end

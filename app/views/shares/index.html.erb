@@ -23,7 +23,42 @@
       <a href="#">@<%= u.first_name %></a> |
       <% end %>
       <br>
-  <%= link_to 'delete', share_path(ss), method: :delete, data: {confirm: 'Sure?'} %>
-  <%= link_to 'edit', edit_share_path(ss),data: {confirm: 'Sure?'} %>
+  <div class="">
+    <%= link_to 'delete', share_path(ss), method: :delete, data: {confirm: 'Sure?'} %>
+    <%= link_to 'edit', edit_share_path(ss),data: {confirm: 'Sure?'} %>
+  </div>
+  <div class="">
+    <% if ss.liked_for(current_user).nil? %>
+      <%= link_to '', share_likes_path(ss,{is_up:false}),
+                                          method: :post,
+                                          class:'glyphicon glyphicon-thumbs-down'
+                                          %>
+      <%= link_to '', share_likes_path(ss,{is_up:true}),
+                                          method: :post,
+                                          class:'glyphicon glyphicon-thumbs-up'
+                                          %>
+    <% elsif ss.liked_for(current_user).is_up? %>
+      <%= link_to '', like_path(ss.liked_for(current_user),{is_up:false}),
+                                                          method: :patch,
+                                                          class:'glyphicon glyphicon-thumbs-down'
+                                                          %>
+      <%= link_to '', like_path(ss.liked_for(current_user),{is_up:true}),
+                                                          method: :delete,
+                                                          class:'glyphicon glyphicon-thumbs-up',
+                                                          style: 'color:red'
+                                                          %>
+    <% else %>
+    <%= link_to '', like_path(ss.liked_for(current_user),{is_up:false}),
+                                                          method: :delete,
+                                                          class:'glyphicon glyphicon-thumbs-down',
+                                                          style: 'color:red'
+                                                          %>
+      <%= link_to '', like_path(ss.liked_for(current_user),{is_up:true}),
+                                                          method: :patch,
+                                                          class:'glyphicon glyphicon-thumbs-up'
+                                                          %>
+    <% end %>
+  </div>
+
   <hr>
 <% end %>
