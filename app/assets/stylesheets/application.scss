@@ -17,3 +17,52 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.main{
+  margin-top: 100px;
+}
+
+.navbar-header > img{
+  width: 100px;
+  height: 100px;
+}
+.navbar-collapse{
+  margin-top: 25px;
+}
+
+.search-bar{
+  height:50px;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+}
+#search{
+  -webkit-transition: background .55s ease;
+-moz-transition: background .55s ease;
+-ms-transition: background .55s ease;
+-o-transition: background .55s ease;
+transition: background .55s ease;
+  color:white;
+  font-size:16px;
+  border: 1.5px solid #F44336;
+  width: 100%;
+  height:50px;
+  border-radius:8px;
+  // background-color:#81C784;
+  background-color:#fff;
+  padding-left:40px;
+  color:black;
+}
+#search::-webkit-input-placeholder{
+  color:#F44336;
+}
+.icon{
+  color:#F44336;
+  position:absolute;
+  top:30%;
+  margin-left:17px;
+  z-index:1;
+}
+#search:hover, #search:active, #search:focus{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

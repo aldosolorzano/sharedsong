@@ -1,18 +1,17 @@
-<h1>New Share</h1>
-
+<h1></h1>
 <%= form_tag search_caches_path do %>
-  <div class="">
-    <%= label_tag :song %>
-    <%= text_field_tag :song%>
+  <div class= "search-bar">
+    <span class="icon"><i class="glyphicon glyphicon-search"></i></span>
+    <%= text_field_tag :song,"",placeholder:'search...',id:'search'%>
   </div>
-  <%= submit_tag 'Search'%>
+  <%# submit_tag 'Search',class:'sbutton'%>
 <% end %>
 
 <hr>
 
 <% if @songs != nil %>
   <% @songs.each do |s| %>
-  <div class="col-md-4">
+  <div class="col-md-4 song-card">
     <iframe src="https://embed.spotify.com/?uri=<%= s[:uri]%>" frameborder="0" allowtransparency="true"></iframe>
     <br>
     <div id='<%= s[:artist_name] %>-<%= s[:song_name] %>' class="">
