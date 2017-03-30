@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
     query = SearchCache.where("search_term ILIKE ?", "%#{search_term}%")
     if query.empty?
       @song = connect_spotify search_term
-      # render json: @song
       redirect_to new_share_path({current_song:@song})
     else
       @song = query.first.create_array_of_songs
