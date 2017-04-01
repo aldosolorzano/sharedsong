@@ -11,13 +11,16 @@ System dependencies
   - Rails 5.0.2
 
 Configuration
+
   git clone https://github.com/aldosolorzano/sharedsong.git 
   run ->  bundle
   
 Database creation
+
   rails/rake db:create db:migrate db:seed
 
 How to run the test suite
+
   - run rails s  
   - go to http://localhost:3000
   
