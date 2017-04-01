@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def connect_spotify search_term
     spotify_response = RSpotify::Track.search(search_term)
-    # byebug
+    # render json: spotify_response.first
     if spotify_response != "null"
       search_cache_song = SearchCache.create(
                               search_term: search_term,

@@ -8,26 +8,34 @@
 <% end %>
 
 <hr>
-
 <% if @songs != nil %>
   <% @songs.each do |s| %>
-  <div class="col-md-4 song-card">
-    <iframe src="https://embed.spotify.com/?uri=<%= s[:uri]%>" frameborder="0" allowtransparency="true"></iframe>
-    <br>
-    <div id='<%= s[:artist_name] %>-<%= s[:song_name] %>' class="">
-      <strong>Artist </strong><p class='artist-name'><%= s[:artist_name] %></p>
-      <strong>Song </strong><p class='song-name'><%= s[:song_name] %></p>
-
+  <div class="row song-card">
+    <div class="col-xs-2 col-md-2">
+      <div style="background-image:url('<%= s[:image][:url]%>')" class="album-img">
+        <div class="play-button">
+          <i class="glyphicon glyphicon-play" song></i>
+          <audio>
+            <source src="<%=s[:uri]%>" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
     </div>
-    <!-- Button trigger modal -->
-    <button id='share'type="button" data-id='<%= s[:artist_name] %>-<%= s[:song_name] %>' class="btn share btn-primary" data-toggle="modal" data-target="#myModal">
-      share
-    </button>
+    <div id='<%= s[:artist_name] %>-<%= s[:song_name] %>' class="col-xs-6 col-md-8 song-artist">
+        <p><strong class='song-name'><%= s[:song_name] %></strong></p>
+        <p class='artist-name'><%= s[:artist_name] %></p>
+    </div>
+    <div class="col-xs-4 col-md-2 share-div">
+      <button type="button" data-id='<%= s[:artist_name] %>-<%= s[:song_name] %>' class="btn share btn-danger " data-toggle="modal" data-target="#myModal">
+        share
+      </button>
+    </div>
   </div>
+
   <% end %>
 <% else %>
   <div class="">
-    <strong>Song not found</strong>
+    <strong>Search for any song</strong>
   </div>
 <% end %>
 
