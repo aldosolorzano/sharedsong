@@ -12,12 +12,11 @@ System dependencies
 
 Configuration
 
-  git clone https://github.com/aldosolorzano/sharedsong.git 
-  run ->  bundle
+  - git clone https://github.com/aldosolorzano/sharedsong.git 
+  - run ->  bundle
   
 Database creation
-
-  rails/rake db:create db:migrate db:seed
+  - rails/rake db:create db:migrate db:seed
 
 How to run the test suite
 
