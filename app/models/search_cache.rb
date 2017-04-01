@@ -10,7 +10,8 @@ class SearchCache < ApplicationRecord
               {
                 song_name:s.name,
                 artist_name:s.artists.first.name,
-                uri: s.uri
+                uri: s.preview_url,
+                image: s.album.images.last
                 }
                 )
     end
