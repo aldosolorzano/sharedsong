@@ -3,9 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .song-card{
-  margin-bottom:15px;
   padding: 5px;
-  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2), 1px 1px 2px 0 rgba(0, 0, 0, 0.19);
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-right: 1px solid rgba(0,0,0,0.2);
+  // box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2), 1px 0px 1px 1px rgba(0, 0, 0, 0.2);
 }
 .album-img {
   height: 60px;
@@ -13,7 +14,7 @@
   background-repeat: no-repeat;
   width: 60px;
   display: flex;
-  justify-content: center;
+
 }
 .play-button {
   width: 100%;
@@ -22,7 +23,15 @@
   display:flex;
   justify-content: center;
   align-items: center;
-
+}
+.play-button:hover> i {
+  color:#F44336;
+}
+.dashboard-play{
+    background: rgba(0,0,0,0.8);
+}
+.dashboard-play > i{
+    color:#F44336 !important;
 }
 .play-button > i {
     max-width: 50%;
@@ -30,10 +39,14 @@
     font-size: 20px;
     cursor: pointer;
 }
-.song-artist > p{
+.song-artist > p {
   margin-left: 10px;
 }
-.share-div{
+.dashboard-artist > p {
+  margin-left: 10px;
+  margin-top: 20px;
+}
+.share-div {
   display: flex;
   justify-content: center;
   padding: 10px;

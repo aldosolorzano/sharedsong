@@ -1,17 +1,28 @@
 
-<h2>Shared by</h2>
-
+<div class="row">
 <% @shared_songs.each do |ss| %>
-<h4><%= ss.artist %> - <%= ss.title %></h4>
-<p><strong>shared by: </strong><%= ss.user.full_name %></p>
-<strong>Shared to: </strong>
-<% ss.shared_users.each do |u| %>
-<a href="#">@<%= u.first_name %></a> |
-<% end %>
-<br>
-<div class="">
-  <%= link_to 'delete', share_path(ss), method: :delete, data: {confirm: 'Sure?'} %>
+<div class=" col-sm-6 col-md-4 song-card">
+  <div class="row">
+    <div class="col-xs-2 col-md-2">
+      <div class="album-img">
+        <div class="play-button dashboard-play">
+          <i class="glyphicon glyphicon-play" song></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-10 col-md-10 dashboard-artist">
+      <p><strong><%= ss.artist %> </strong> - <%= ss.title %></p>
+    </div>
+  </div>
+  <hr>
+<div class="shared-friends">
+  <p><strong>shared by: </strong><%= ss.user.full_name %></p>
+  <strong>Shared to: </strong>
+  <% ss.shared_users.each do |u| %>
+  <a href="#">@<%= u.first_name %></a> |
+  <% end %>
 </div>
+<br>
 <div class="">
   <% if ss.liked_for(current_user).nil? %>
   <%= link_to '', share_likes_path(ss,{is_up:false}),
@@ -43,21 +54,39 @@
     class:'glyphicon glyphicon-thumbs-up'
       %>
    <% end %>
+    </div>
   </div>
-
-  <hr>
 <% end %>
+</div>
 
 <h2>My shares</h2>
+<hr>
+<div class="row">
 <% @shares.each do |s| %>
-  <h4><%= s.artist %> - <%= s.title %></h4>
-  <p><strong>shared by: </strong><%= s.user.full_name %></p>
+  <div class=" col-sm-6 song-card">
+    <div class="row">
+      <div class="col-xs-2 col-md-2">
+        <div class="album-img">
+          <div class="play-button dashboard-play">
+            <i class="glyphicon glyphicon-play" song></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-10 col-md-10 dashboard-artist">
+        <p><strong><%= s.artist %> </strong> - <%= s.title %></p>
+      </div>
+    </div>
+    <hr>
+    <div class="shared-friends">
+
+    </div>
     <strong>Shared to: </strong>
-      <% s.shared_users.each do |u| %>
-      <a href="#">@<%= u.first_name %></a> |
-      <% end %>
-      <br>
-  <%= link_to 'delete', share_path(s), method: :delete, data: {confirm: 'Sure?'} %>
-  <%= link_to 'edit', edit_share_path(s),data: {confirm: 'Sure?'} %>
-  <hr>
+    <% s.shared_users.each do |u| %>
+    <a href="#">@<%= u.first_name %></a> |
+    <% end %>
+    <br>
+    <%= link_to 'delete', share_path(s), method: :delete, data: {confirm: 'Sure?'} %>
+    <%= link_to 'edit', edit_share_path(s),data: {confirm: 'Sure?'} %>
+  </div>
 <% end %>
+</div>

@@ -19,7 +19,12 @@ class SharesController < ApplicationController
     share_params = params.require(:share).permit(:title, :artist,{shared_user_ids:[]})
     @share = Share.new share_params
     @share.user = current_user
-    @share.song = Song.find_by(name: params[:title])
+    song = Song.find_by(name: params[:share][:title])
+    if song.nil?
+      @share.song = Song.create(name: params[:share][:title],artist: params[:share][:artist])
+    else
+      @share.song = song
+    end
 
     if @share.save
       redirect_to root_path, notice:'Share created'
