@@ -12,6 +12,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
+
     @like.destroy
     redirect_to root_path
 
