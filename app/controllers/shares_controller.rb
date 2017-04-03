@@ -25,7 +25,6 @@ class SharesController < ApplicationController
     else
       @share.song = song
     end
-
     if @share.save
       redirect_to root_path, notice:'Share created'
     else

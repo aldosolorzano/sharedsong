@@ -13,9 +13,14 @@
   </div>
 
   <div class="form-group">
+    <% if current_user.friends.empty? %>
+      <% user_friends = current_user.friends %>
+    <% else %>
+      <% user_friends = User.all %>
+    <% end %>
     <%= s.label 'friends' %>
     <%= s.collection_select :shared_user_ids,
-                            current_user.friends,
+                            user_friends,
                             :id, :first_name,
                             {},
                             { multiple:true,

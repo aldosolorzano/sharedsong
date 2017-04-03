@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  serialize :spotify_hash, Hash
   has_secure_password
   has_friendship
 
@@ -33,7 +32,6 @@ class User < ApplicationRecord
    User.create(
     first_name: display_name,
     email: spotify_user.email,
-    spotify_hash: spotify_user.to_hash,
     provider: 'spotify',
     password: SecureRandom.hex(10)
     )
