@@ -29,9 +29,9 @@ class User < ApplicationRecord
     spotify_hash.present? && provider.present?
   end
 
-  def self.create_from_spotify_oauth spotify_user
-
+  def self.create_from_spotify_oauth spotify_user, display_name
    User.create(
+    first_name: display_name,
     email: spotify_user.email,
     spotify_hash: spotify_user.to_hash,
     provider: 'spotify',
