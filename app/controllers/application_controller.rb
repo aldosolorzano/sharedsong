@@ -20,11 +20,26 @@ class ApplicationController < ActionController::Base
   def connect_spotify search_term
     spotify_response = RSpotify::Track.search(search_term)
     # render json: spotify_response.first
-    if spotify_response != "null"
+    # byebug
+    if spotify_response == "null" || spotify_response.empty?
+      UserSearchHistory.create(
+      user: current_user,
+      search_term:  search_term,
+      success: false
+      )
+      return nil
+    else
       search_cache_song = SearchCache.create(
-                              search_term: search_term,
-                              result: spotify_response
-                              )
+      search_term: search_term,
+      result: spotify_response
+      )
+
+      UserSearchHistory.create(
+      user: current_user,
+      search_term:  search_term,
+      success: true
+      )
+
       search_cache_song.create_array_of_songs
     end
   end

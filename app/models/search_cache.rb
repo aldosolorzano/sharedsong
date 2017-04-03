@@ -17,5 +17,6 @@ class SearchCache < ApplicationRecord
     end
     songs
   end
+  
 
 end
