@@ -2,7 +2,7 @@ class Share < ApplicationRecord
   belongs_to :user
   belongs_to :song
 
-  has_many :user_shares, dependent: :destroy
+  has_many :user_shares, dependent: :nullify
   has_many :shared_users, through: :user_shares, source: :user
 
   has_many :likes, dependent: :destroy
@@ -13,7 +13,7 @@ class Share < ApplicationRecord
   validates :artist, presence:true
 
   def liked_by(user)
-    likes.exists?(user:user)
+    likes.exists?(user: user)
   end
 
   def liked_for(user)

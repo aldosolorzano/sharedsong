@@ -35,6 +35,7 @@ gem 'has_friendship'
 gem 'rspotify'
 gem 'omniauth-spotify'
 gem 'has_friendship'
+gem 'searchkick'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
