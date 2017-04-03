@@ -3,10 +3,12 @@ class UsersController < ApplicationController
   def spotify
     spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
     user = User.find_by(email: spotify_user.email)
+    display_name = request.env['omniauth.auth'].info.nickname
 
-    user ||= User.create_from_spotify_oauth(spotify_user)
+    user ||= User.create_from_spotify_oauth(spotify_user, display_name)
     session[:user_id] = user.id
-    redirect_to root_path,notice: 'Thank you for signing in with spotify'
+    # render json: spotify_user
+    redirect_to root_path,notice: "Thank you #{display_name} for signing in with spotify"
   end
 
   def new

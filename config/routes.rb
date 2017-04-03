@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'shares#index'
   get '/auth/spotify/callback', to: 'users#spotify'
 
+  # resources :omniauths, only:[:index,:new,:create]
   resources :shares, shallow:true do
     resources :likes, only: [:create,:destroy,:update]
   end
