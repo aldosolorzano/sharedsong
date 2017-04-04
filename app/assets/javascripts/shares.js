@@ -1,4 +1,13 @@
 $(document).ready(function(){
+  var songs = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/songs/autocomplete?query=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+
   $(".share").on('click',(event)=>{
     const {target} =event
     const container = $(target).attr('data-id')
@@ -32,4 +41,6 @@ $(document).ready(function(){
      $(audio).trigger("pause")
    }
  })
+
+
 })

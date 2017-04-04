@@ -13,5 +13,10 @@ Rails.application.routes.draw do
     delete :destroy, on: :collection
   end
   resources :search_caches, only:[:create]
+  resources :songs do
+    collection do
+      get :autocomplete
+    end
+  end
 
 end

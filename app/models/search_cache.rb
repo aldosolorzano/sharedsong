@@ -1,4 +1,5 @@
 class SearchCache < ApplicationRecord
+  searchkick word_middle: [:search_term]
   validates :search_term, uniqueness:true, case_sensitive:false
 
   serialize :result, Array
@@ -17,6 +18,11 @@ class SearchCache < ApplicationRecord
     end
     songs
   end
-  
+
+  def search_data
+    {
+      search_term: search_term
+    }
+  end
 
 end
