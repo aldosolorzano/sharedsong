@@ -31,21 +31,27 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="glyphicon glyphicon-flash" style="color:yellow"></span></a>
               <ul class="dropdown-menu">
                 <% if user_signed_in? %>
-                  <% if current_user.create_array_of_pending_shares.empty? %>
+                  <% notification_arr = current_user.create_array_of_pending_shares %>
+                  <% if notification_arr.empty? %>
                     <li>start sharing songs</li>
                   <% else %>
-                    <% current_user.create_array_of_pending_shares.each do |s| %>
-                      <li>s.song_title</li>
+                    <% notification_arr.each do |s| %>
+                      <li>
+                        <a href="#">
+                          <i class="glyphicon glyphicon-play-circle"></i>
+                          <%= s[:song_title] %> -
+                          <%= s[:artist] %> <br>
+                          @<%= s[:user_creator] %>
+                        </a>
+                        <%= link_to 'Accept', root_path,style: 'color:green' %>
+                        <%= link_to 'Reject', root_path,style: 'color:red' %>
+                      </li>
+                      <li role="separator" class="divider"></li>
                     <% end %>
                   <% end %>
                 <% else%>
                   <li>please sign in</li>
                 <% end  %>
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
               </ul>
             </li>
             <li>
