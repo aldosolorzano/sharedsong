@@ -52,11 +52,6 @@ class SharesController < ApplicationController
 
   private
 
-  def find_json_for_song
-    SearchCache.
-  end
-
-
   def authorize
     @share = Share.find params[:id]
     if cannot?(:manage,@share)

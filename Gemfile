@@ -48,6 +48,7 @@ group :development, :test do
   gem 'awesome_print'
   gem 'rspec-rails', '~>3.5'
   gem 'rails-controller-testing'
+  gem 'bootstrap-typeahead-rails'
 
 end
 

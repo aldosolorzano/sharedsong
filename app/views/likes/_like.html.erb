@@ -1,0 +1,33 @@
+<% @shared_songs.each do |ss| %>
+    <% if ss.liked_for(current_user).nil? %>
+    <%= link_to '', share_likes_path(ss,{is_up:false}),
+    method: :post,
+    class:'glyphicon glyphicon-thumbs-down'
+      %>
+      <%= link_to '', share_likes_path(ss,{is_up:true}),
+      method: :post,
+      class:'glyphicon glyphicon-thumbs-up'
+        %>
+    <% elsif ss.liked_for(current_user).is_up? %>
+    <%= link_to '', like_path(ss.liked_for(current_user),{is_up:false}),
+    method: :patch,
+    class:'glyphicon glyphicon-thumbs-down'
+      %>
+      <%= link_to '', like_path(ss.liked_for(current_user),{is_up:true}),
+      method: :delete,
+      class:'glyphicon glyphicon-thumbs-up',
+        style: 'color:red'
+        %>
+    <% else %>
+    <%= link_to '', like_path(ss.liked_for(current_user),{is_up:false}),
+    method: :delete,
+    remote:true,
+    class:'glyphicon glyphicon-thumbs-down',
+      style: 'color:red'
+      %>
+      <%= link_to '', like_path(ss.liked_for(current_user),{is_up:true}),
+      method: :patch,
+      class:'glyphicon glyphicon-thumbs-up'
+        %>
+    <% end %>
+<% end %>

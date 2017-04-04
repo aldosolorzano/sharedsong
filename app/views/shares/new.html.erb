@@ -2,9 +2,11 @@
 <%= form_tag search_caches_path do %>
   <div class= "search-bar">
     <span class="icon"><i class="glyphicon glyphicon-search"></i></span>
-    <%= text_field_tag :song,"",placeholder:'search...',id:'search'%>
+    <%= text_field_tag :song,params[:song],
+        placeholder:'search...',
+        autocomplete: :off,
+        id:'search'%>
   </div>
-  <%# submit_tag 'Search',class:'sbutton'%>
 <% end %>
 
 <% if @songs != nil %>
