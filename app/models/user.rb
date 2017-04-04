@@ -45,6 +45,7 @@ class User < ApplicationRecord
         if s.aasm_state == "created"
           user_creator = User.find(s.user_id)
           pending_shares.push({
+            share_id: s.id,
             user_creator: user_creator.first_name,
             song_title: s.title,
             artist: s.artist
@@ -56,25 +57,10 @@ class User < ApplicationRecord
   def create_array_of_accepted_shares
       accepted_shares = []
       self.shared_songs.each do |s|
-        if s.aasm_state == "accepted"
-          user_creator = User.find(s.user_id)
-          accepted_shares.push({
-            user_creator: user_creator.full_name,
-            song_title: s.title,
-            artist: s.artist,
-            shared_users: array_of_shared_users(s)
-          })
+        if s.accepted?
+          accepted_shares.push(s)
         end
       end
       accepted_shares
   end
-
-  def array_of_shared_users share
-    array_shared_users = []
-    share.shared_users.each do |u|
-      array_shared_users.push(u.first_name.capitalize)
-    end
-    array_shared_users
-  end
-
   end

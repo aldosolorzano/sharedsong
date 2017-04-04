@@ -27,13 +27,14 @@
     <div class="navbar-collapse collapse" id="nav-collapsible-section">
       <form class="navbar-form navbar-right">
           <ul class="nav navbar-nav">
+            <% if user_signed_in? %>
+              <% notification_arr = current_user.create_array_of_pending_shares %>
+              <% color = 'yellow' unless notification_arr.empty? %>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="glyphicon glyphicon-flash" style="color:yellow"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="glyphicon glyphicon-flash" style="color:<%= color %>"></span></a>
               <ul class="dropdown-menu">
-                <% if user_signed_in? %>
-                  <% notification_arr = current_user.create_array_of_pending_shares %>
                   <% if notification_arr.empty? %>
-                    <li>start sharing songs</li>
+                    <li><a href="#">Start sharing songs</a></li>
                   <% else %>
                     <% notification_arr.each do |s| %>
                       <li>
@@ -43,14 +44,15 @@
                           <%= s[:artist] %> <br>
                           @<%= s[:user_creator] %>
                         </a>
-                        <%= link_to 'Accept', root_path,style: 'color:green' %>
+                        <%= link_to 'Accept', share_path(s[:share_id],{status:'accept'}),
+                                              style: 'color:green',
+                                              method: :patch
+                                              %>
                         <%= link_to 'Reject', root_path,style: 'color:red' %>
                       </li>
                       <li role="separator" class="divider"></li>
                     <% end %>
                   <% end %>
-                <% else%>
-                  <li>please sign in</li>
                 <% end  %>
               </ul>
             </li>
