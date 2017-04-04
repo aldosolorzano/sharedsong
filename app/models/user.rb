@@ -39,4 +39,19 @@ class User < ApplicationRecord
     )
   end
 
+  def create_array_of_pending_shares
+      pending_shares = []
+      self.shared_songs.each do |s|
+        if s.aasm_state == "created"
+          user_creator = User.find(s.user_id)
+          pending_shares.push({
+            user_creator: user_creator.first_name,
+            song_title: s.title,
+            artist: s.artist
+            })
+        end
+      end
+      pending_shares
+  end
+
 end

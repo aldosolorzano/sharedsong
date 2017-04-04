@@ -7,6 +7,10 @@ $(document).ready(function(){
       wildcard: '%QUERY'
     }
   });
+  $("#search").typeahead(null,{
+    name: 'my-dataset',
+    source: songs
+  })
 
   $(".share").on('click',(event)=>{
     const {target} =event
