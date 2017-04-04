@@ -11,15 +11,15 @@
       </div>
     </div>
     <div class="col-xs-10 col-md-10 dashboard-artist">
-      <p><strong><%= ss.artist %> </strong> - <%= ss.title %></p>
+      <p><strong><%= ss[:artist] %> </strong> - <%= ss[:song_title] %></p>
     </div>
   </div>
   <hr>
 <div class="shared-friends">
-  <p><strong>shared by: </strong><%= ss.user.full_name %></p>
+  <p><strong>Shared by: </strong><%= ss[:user_creator] %></p>
   <strong>Shared to: </strong>
-  <% ss.shared_users.each do |u| %>
-  <a href="#">@<%= u.first_name %></a> |
+  <% ss[:shared_users].each do |first_name| %>
+  <a href="#">@<%= first_name %></a> |
   <% end %>
 </div>
 <br>

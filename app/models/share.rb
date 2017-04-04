@@ -1,4 +1,6 @@
 class Share < ApplicationRecord
+  include AASM
+
   belongs_to :user
   belongs_to :song
 
@@ -11,6 +13,20 @@ class Share < ApplicationRecord
 
   validates :title, presence:true
   validates :artist, presence:true
+
+  aasm whiny_transitions: false do
+    state :created, intial: true
+    state :accepted
+    state :rejected
+
+    event :accept do
+      transitions from: :created, to: :accepted
+    end
+
+    event :reject do
+      transitions from: :created, to: :rejected
+    end
+  end
 
   def liked_by(user)
     likes.exists?(user: user)

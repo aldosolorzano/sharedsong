@@ -27,6 +27,33 @@
     <div class="navbar-collapse collapse" id="nav-collapsible-section">
       <form class="navbar-form navbar-right">
           <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="glyphicon glyphicon-flash" style="color:yellow"></span></a>
+              <ul class="dropdown-menu">
+                <% if user_signed_in? %>
+                  <% notification_arr = current_user.create_array_of_pending_shares %>
+                  <% if notification_arr.empty? %>
+                    <li>start sharing songs</li>
+                  <% else %>
+                    <% notification_arr.each do |s| %>
+                      <li>
+                        <a href="#">
+                          <i class="glyphicon glyphicon-play-circle"></i>
+                          <%= s[:song_title] %> -
+                          <%= s[:artist] %> <br>
+                          @<%= s[:user_creator] %>
+                        </a>
+                        <%= link_to 'Accept', root_path,style: 'color:green' %>
+                        <%= link_to 'Reject', root_path,style: 'color:red' %>
+                      </li>
+                      <li role="separator" class="divider"></li>
+                    <% end %>
+                  <% end %>
+                <% else%>
+                  <li>please sign in</li>
+                <% end  %>
+              </ul>
+            </li>
             <li>
               <a href="<%= new_share_path %>" class="btn btn-danger">
                 <i style="color:white"class="glyphicon glyphicon-search"></i>

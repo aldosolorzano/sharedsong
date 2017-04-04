@@ -2,7 +2,7 @@ class SharesController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize,only:[:edit,:update,:destroy]
   def index
-    @shared_songs = current_user.shared_songs
+    @shared_songs = current_user.create_array_of_accepted_shares
     @shares = current_user.shares.order(created_at: :desc)
   end
 
