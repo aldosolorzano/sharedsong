@@ -1,6 +1,6 @@
 class SharesController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize,only:[:edit,:update,:destroy]
+  before_action :authorize,only:[:destroy]
   def index
     @shared_songs = current_user.create_array_of_accepted_shares
     @shares = current_user.shares.order(created_at: :desc)
@@ -34,13 +34,16 @@ class SharesController < ApplicationController
   end
 
   def update
-    share_params = params.require(:share).permit(:title, :artist,{shared_user_ids:[]})
     share = Share.find params[:id]
-
-    if share.update share_params
-      redirect_to root_path, notice: 'Share updated!'
-    else
-      render :edit
+    user_share = share.shared_to(current_user)
+    if user_share
+       if params[:status] == 'accept'
+         user_share.accept
+       else
+         user_share.reject 
+       end
+       user_share.save
+       redirect_to root_path
     end
   end
 

@@ -36,4 +36,7 @@ class Share < ApplicationRecord
     likes.find_by(user: user)
   end
 
+  def shared_to(user)
+    user_shares.find_by(user:user)
+  end
 end
