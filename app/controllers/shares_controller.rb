@@ -35,13 +35,15 @@ class SharesController < ApplicationController
 
   def update
     share = Share.find params[:id]
-    if(share.created? && params[:status] == "accept")
-      share.accept
-      share.save
-      redirect_to root_path
-    else
-      share.reject
-      redirect_to root_path
+    user_share = share.shared_to(current_user)
+    if user_share
+       if params[:status] == 'accept'
+         user_share.accept
+       else
+         user_share.reject 
+       end
+       user_share.save
+       redirect_to root_path
     end
   end
 

@@ -11,7 +11,6 @@ class User < ApplicationRecord
 
   has_many :likes, dependent: :destroy
   has_many :liked_shares, through: :likes, source: :share
-
   has_friendship
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -41,8 +40,9 @@ class User < ApplicationRecord
 
   def create_array_of_pending_shares
       pending_shares = []
-      self.shared_songs.each do |s|
-        if s.aasm_state == "created"
+      self.user_shares.each do |us|
+        if us.created?
+          s = us.share
           user_creator = User.find(s.user_id)
           pending_shares.push({
             share_id: s.id,
@@ -56,9 +56,9 @@ class User < ApplicationRecord
   end
   def create_array_of_accepted_shares
       accepted_shares = []
-      self.shared_songs.each do |s|
-        if s.accepted?
-          accepted_shares.push(s)
+      self.user_shares.each do |us|
+        if us.accepted?
+          accepted_shares.push(us.share)
         end
       end
       accepted_shares

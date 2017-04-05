@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   end
 
   def search_cache_query search_term
-    # query = SearchCache.where("search_term ILIKE ?", "%#{search_term}%")
     query = SearchCache.search(search_term)
     if query.empty?
       @song = connect_spotify search_term
@@ -20,8 +19,6 @@ class ApplicationController < ActionController::Base
 
   def connect_spotify search_term
     spotify_response = RSpotify::Track.search(search_term)
-    # render json: spotify_response.first
-    # byebug
     if spotify_response == "null" || spotify_response.empty?
       UserSearchHistory.create(
       user: current_user,

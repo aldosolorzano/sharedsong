@@ -42,13 +42,19 @@
                           <i class="glyphicon glyphicon-play-circle"></i>
                           <%= s[:song_title] %> -
                           <%= s[:artist] %> <br>
+                          <i class="glyphicon glyphicon-user"></i>
                           @<%= s[:user_creator] %>
                         </a>
-                        <%= link_to 'Accept', share_path(s[:share_id],{status:'accept'}),
+                        <%= link_to 'Accept', share_path(s[:share_id],
+                                              {status:'accept'}),
                                               style: 'color:green',
                                               method: :patch
                                               %>
-                        <%= link_to 'Reject', root_path,style: 'color:red' %>
+                        <%= link_to 'Reject', share_path(s[:share_id],
+                                              {status:'reject'}),
+                                              style: 'color:red',
+                                              method: :patch
+                                              %>
                       </li>
                       <li role="separator" class="divider"></li>
                     <% end %>
@@ -79,6 +85,13 @@
     <div class="container main">
       <%= notice || alert %>
       <%= yield %>
+    </div>
+    <div class="container footer">
+      <h1></h1>
+      <% if current_user.presence %>
+
+      <p class='text-center'><%= current_user.full_name %></p>
+      <% end %>
     </div>
   </body>
 </html>
