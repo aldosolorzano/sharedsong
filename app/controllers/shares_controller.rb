@@ -7,7 +7,7 @@ class SharesController < ApplicationController
   end
 
   def new
-    @songs = params[:current_song]
+    @search_query = params[:search_query]
     @share = Share.new
   end
 
@@ -40,7 +40,7 @@ class SharesController < ApplicationController
        if params[:status] == 'accept'
          user_share.accept
        else
-         user_share.reject 
+         user_share.reject
        end
        user_share.save
        redirect_to root_path

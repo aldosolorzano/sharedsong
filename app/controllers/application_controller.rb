@@ -1,18 +1,25 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  def get_song
-    @song
-  end
-
   def search_cache_query search_term
-    query = SearchCache.search(search_term)
-    if query.empty?
-      @song = connect_spotify search_term
-      redirect_to new_share_path({current_song:@song})
+    song_query = SearchCache.search(search_term)
+    users_query = current_user.search_for_users(search_term)
+
+    if song_query.empty?
+      @query = {
+        songs: connect_spotify(search_term),
+        users: users_query
+        }
+
+
+      redirect_to new_share_path({search_query:@query})
     else
-      @song = query.first.create_array_of_songs
-      redirect_to new_share_path({current_song:@song})
+      @query = {
+        songs: song_query.first.create_array_of_songs,
+        users: users_query
+        }
+
+      redirect_to new_share_path({search_query:@query})
     end
   end
 

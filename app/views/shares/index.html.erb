@@ -86,11 +86,9 @@ class:'glyphicon glyphicon-thumbs-down',
     </div>
     <strong>Shared to: </strong>
     <% s.shared_users.each do |u| %>
-    <a href="#">@<%= u.first_name %></a> |
+    | <a href="#">@<%= u.first_name %></a>
     <% end %>
     <br>
-    <%= link_to 'delete', share_path(s), method: :delete, data: {confirm: 'Sure?'} %>
-    <%= link_to 'edit', edit_share_path(s),data: {confirm: 'Sure?'} %>
   </div>
 <% end %>
 </div>

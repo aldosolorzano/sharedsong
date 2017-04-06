@@ -1,5 +1,8 @@
 class User < ApplicationRecord
+
   serialize :spotify_hash, Hash
+  searchkick word_middle: [:first_name,:last_name]
+
   has_secure_password
   has_friendship
 
@@ -18,6 +21,17 @@ class User < ApplicationRecord
                   uniqueness:true,
                   format: VALID_EMAIL_REGEX,
                   unless: :from_oauth?
+
+  def search_for_users search_term
+    users = User.search(search_term)
+    users.to_a.map(&:full_name)
+  end
+  def search_data
+    {
+      first_name: first_name,
+      last_name: last_name
+    }
+  end
 
   def full_name
       "#{first_name} #{last_name}".strip.titleize
