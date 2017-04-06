@@ -5,14 +5,24 @@
     <%= text_field_tag :song,params[:song],
         placeholder:'search...',
         autocomplete: :off,
-        id:'search'%>
+        id:'search' %>
   </div>
   <%= submit_tag "",style:"visibility:hidden" %>
 <% end %>
 
-<% if @songs != nil %>
+<% users_arr = @search_query[:users] %>
+<% if !users_arr.nil? %>
+  <strong>Users: </strong>
+  <% users_arr.each do |name| %>
+    <span>
+      <%= link_to "@#{name}", root_path %>
+      <%= link_to 'Add to friends', root_path, class: "btn btn-success btn-xs" %>
+    </span>
+  <% end %>
+<% end %>
 <hr>
-  <% @songs.each do |s| %>
+<% if !@search_query[:songs].is_a? String %>
+  <% @search_query[:songs].each do |s| %>
   <div class="row song-card">
     <div class="col-xs-2 col-md-2">
       <div style="background-image:url('<%= s[:image][:url]%>')" class="album-img">
