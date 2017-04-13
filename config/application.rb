@@ -22,6 +22,6 @@ module Sharesong
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-  RSpotify::authenticate("d6fbdd8b0dae4eb2a52544d9e0388a6b", "380596b450dc437ebbef1001b31dbce1")
+  RSpotify::authenticate('d6fbdd8b0dae4eb2a52544d9e0388a6b', '101dd59c39ea48ccbbd7611b339ab0cb')
   end
 end

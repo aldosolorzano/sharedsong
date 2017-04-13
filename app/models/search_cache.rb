@@ -1,6 +1,6 @@
 class SearchCache < ApplicationRecord
   searchkick word_middle: [:search_term]
-  validates :search_term, uniqueness:true, case_sensitive:false
+  validates :search_term, uniqueness:true, case_sensitive:false, presence:true
 
   serialize :result, Array
 
