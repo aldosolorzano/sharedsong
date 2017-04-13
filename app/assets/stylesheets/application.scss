@@ -63,7 +63,8 @@ transition: background .55s ease;
   color:black;
 }
 #search::-webkit-input-placeholder{
-  color:#F44336;
+  color:rba(0,0,0,0.8);
+  font-size: 14px;
 }
 .icon{
   color:#F44336;

@@ -11,7 +11,13 @@ $(document).ready(function(){
     name: 'my-dataset',
     source: songs
   })
-
+  $("#search-form").on('submit',(event)=>{
+    const searchTerm =  $("#search").val()
+    if(searchTerm == "") {
+      event.preventDefault()
+      alert('Can\'t be blank')
+    }
+  })
   $(".share").on('click',(event)=>{
     const {target} =event
     const container = $(target).attr('data-id')
@@ -45,6 +51,7 @@ $(document).ready(function(){
      $(audio).trigger("pause")
    }
  })
+
 
 
 })
