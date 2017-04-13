@@ -11,19 +11,19 @@ $(document).ready(function(){
     name: 'my-dataset',
     source: songs
   })
-  $("#search-form").on('submit',(event)=>{
-    const searchTerm =  $("#search").val()
+  $("#search-form").on('submit',function(event){
+    var searchTerm =  $("#search").val()
     if(searchTerm == "") {
       event.preventDefault()
       alert('Can\'t be blank')
     }
   })
-  $(".share").on('click',(event)=>{
-    const {target} =event
-    const container = $(target).attr('data-id')
-    const containerSelector = $(`[id='${container}']`);
-    const song = $(containerSelector).find('.song-name').html()
-    const artist = $(containerSelector).find('.artist-name').html()
+  $(".share").on('click',function(event){
+    var {target} =event
+    var container = $(target).attr('data-id')
+    var containerSelector = $(`[id='${container}']`);
+    var song = $(containerSelector).find('.song-name').html()
+    var artist = $(containerSelector).find('.artist-name').html()
 
     $("#form_artist").val(artist)
     $("#form_song").val(song);
@@ -36,11 +36,11 @@ $(document).ready(function(){
  });
 
  $('i').on('click',(event)=>{
-   const {target} = event;
-   const iconClass = $(target).attr('class');
-   const playClass = 'glyphicon glyphicon-play';
-   const pauseClass = 'glyphicon glyphicon-pause';
-   const audio = $(target).next()
+   var {target} = event;
+   var iconClass = $(target).attr('class');
+   var playClass = 'glyphicon glyphicon-play';
+   var pauseClass = 'glyphicon glyphicon-pause';
+   var audio = $(target).next()
 
    if(iconClass == playClass) {
      $(target).toggleClass(playClass).addClass(pauseClass)
