@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Shared Song is a web application that allows users to listen to music and share their favourite songs with others utilizing the Spotify API. Using this Shared Song, users are also able to easily track both what has been shared with them, and what they've shared with others.
+To improve the search queries, the seed file will populate a table with songs and using elastic search the results will be more accurate, and also show suggestion for the songs.
 
-Things you may want to cover:
+## Dependencies
+  * Ruby 2.3.1
+  * postgreSQL 9.5.6
+  * Rails 5.0.2
+  * Elasticsearch 5.2.2
 
-* Ruby version
+## Installation
 
-* System dependencies
+Bundle ruby gems:
+```
+ $ bundle
+```  
+Database creation:
+```
+ $ rails/rake db:create db:migrate db:seed
+```
+How to run the test suite:
+```
+  $ rails s  
+```  
+Happy Coding :)
 
-* Configuration
+Feedback is welcome 
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

@@ -1,27 +1,66 @@
-<h1>New Share</h1>
-<p><%= @share.errors.full_messages.join(', ') %></p>
-
-<%= form_for @share do |s| %>
-  <div class="">
-    <%= s.label :artist %>
-    </br>
-    <%= s.text_field :artist %>
+<h1></h1>
+<%= form_tag search_caches_path, id:'search-form' do %>
+  <div class= "search-bar">
+    <span class="icon"><i class="glyphicon glyphicon-search"></i></span>
+    <%= text_field_tag :song,params[:song],
+        placeholder:'Search songs, artists, users',
+        autocomplete: :off,
+        id:'search'%>
   </div>
-  <div class="">
-    <%= s.label :title %>
-    </br>
-    <%= s.text_field :title %>
-  </div>
-
-  <div class="">
-    <%= s.label :shared_user_ids %>
-    <%= s.collection_check_boxes :shared_user_ids, User.all, :id, :first_name do |b| %>
-      <div class='user-wrapper'>
-        <%= b.check_box %>
-        <%= b.text %>
-      </div>
-    <% end %>
-  </div>
-
-  <%= s.submit %>
+  <%= submit_tag "",style:"visibility:hidden" %>
 <% end %>
+
+<% if !@search_query.nil? %>
+  <% if @search_query[:users].presence  %>
+  <strong>Users: </strong>
+    <% @search_query[:users].each do |name| %>
+      <span>
+        <%= link_to "@#{name}", root_path %>
+        <%= link_to 'Add to friends', root_path, class: "btn btn-success btn-xs" %>
+      </span>
+    <% end %>
+  <% end %>
+
+<hr>
+<% if !@search_query[:songs].is_a? String %>
+  <% @search_query[:songs].each do |s| %>
+    <div class="row song-card">
+      <div class="col-xs-2 col-md-2">
+        <div style="background-image:url('<%= s[:image][:url]%>')" class="album-img">
+          <div class="play-button">
+            <i class="glyphicon glyphicon-play" song></i>
+            <audio>
+              <source src="<%=s[:uri]%>" type="audio/mpeg">
+            </audio>
+          </div>
+        </div>
+      </div>
+      <div id='<%= s[:artist_name] %>-<%= s[:song_name] %>' class="col-xs-6 col-md-8 song-artist">
+          <p><strong class='song-name'><%= s[:song_name] %></strong></p>
+          <p class='artist-name'><%= s[:artist_name] %></p>
+      </div>
+      <div class="col-xs-4 col-md-2 share-div">
+        <button type="button" data-id='<%= s[:artist_name] %>-<%= s[:song_name] %>' class="btn share btn-danger " data-toggle="modal" data-target="#myModal">
+          share
+        </button>
+      </div>
+    </div>
+    <% end %> <%# end of @search_query[:songs].each loop  %>
+  <% end %>   <%# end of @search_query[:songs].is_a? %>
+<% end %>     <%# end of @search_query.nil? %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="" id="myModalLabel">New Share</h4>
+      </div>
+      <div class="modal-body">
+      <%=   render "form" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,21 +9,89 @@
   </head>
 
   <body>
-    <nav>
-      <%= link_to 'Dashboard', root_path %>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= image_tag 'shared.png' %>
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#nav-collapsible-section">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
 
+    </div>
+    <div class="navbar-collapse collapse" id="nav-collapsible-section">
+      <form class="navbar-form navbar-right">
+          <ul class="nav navbar-nav">
+            <% if user_signed_in? %>
+              <% notification_arr = current_user.create_array_of_pending_shares %>
+              <% color = 'yellow' unless notification_arr.empty? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="glyphicon glyphicon-flash" style="color:<%= color %>"></span></a>
+              <ul class="dropdown-menu">
+                  <% if notification_arr.empty? %>
+                    <li><a href="#">Start sharing songs</a></li>
+                  <% else %>
+                    <% notification_arr.each do |s| %>
+                      <li>
+                        <a href="#">
+                          <i class="glyphicon glyphicon-play-circle"></i>
+                          <%= s[:song_title] %> -
+                          <%= s[:artist] %> <br>
+                          <i class="glyphicon glyphicon-user"></i>
+                          @<%= s[:user_creator] %>
+                        </a>
+                        <%= link_to 'Accept', share_path(s[:share_id],
+                                              {status:'accept'}),
+                                              style: 'color:green',
+                                              method: :patch
+                                              %>
+                        <%= link_to 'Reject', share_path(s[:share_id],
+                                              {status:'reject'}),
+                                              style: 'color:red',
+                                              method: :patch
+                                              %>
+                      </li>
+                      <li role="separator" class="divider"></li>
+                    <% end %>
+                  <% end %>
+                <% end  %>
+              </ul>
+            </li>
+            <li>
+              <a href="<%= new_share_path %>" class="btn btn-danger">
+                <i style="color:white"class="glyphicon glyphicon-search"></i>
+              </a>
+            </li>
+          </ul>
+      </form>
+      <ul class="nav navbar-nav">
+        <li><%= link_to 'Dashboard', root_path %></li>
+        <% if user_signed_in? %>
+        <li><%= link_to 'Sign out', sessions_path,class:'center-text',method: :delete if user_signed_in?%></li>
+        <% else %>
+        <li><%= link_to 'Sign Up', new_user_path%></li>
+        <li><%= link_to 'Sign In', new_session_path%></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-      <% if user_signed_in? %>
-        <span><strong>Hello </strong><%= current_user.full_name %></span>
-        <%= link_to 'Sign out', sessions_path, method: :delete if user_signed_in? %>
-        <%= link_to 'New Share', new_share_path %>
-      <% else %>
-        <%= link_to 'Sign Up', new_user_path%>
-        <%= link_to 'Sign In', new_session_path%>
+    <div class="container main">
+      <%= notice || alert %>
+      <%= yield %>
+    </div>
+    <div class="container footer">
+      <h1></h1>
+      <% if current_user.presence %>
+
+      <p class='text-center'><%= current_user.full_name %></p>
       <% end %>
-      <hr>
-    </nav>
-    <%= notice || alert %>
-    <%= yield %>
+    </div>
   </body>
 </html>

@@ -1,13 +1,31 @@
-<h1>Log in</h1>
+<div class="container-fluid">
 
-<%= form_tag sessions_path do %>
-  <div class="">
-    <%= label_tag :email %>
-    <%= text_field_tag :email%>
+  <div class="col-sm-6 col-md-8">
+    <div class="sign-card">
+      <h1>Log in</h1>
+
+      <%= form_tag sessions_path do %>
+      <div class="form-group">
+        <%= label_tag :email %>
+        <%= text_field_tag :email,"",class: 'form-control'%>
+      </div>
+      <div class="form-group">
+        <%= label_tag :password %>
+        <%= password_field_tag :password,"",class: 'form-control'%>
+      </div>
+      <%= submit_tag 'Sign in',class:'btn btn-success'%>
+      <% end %>
+    </div>
   </div>
-  <div class="">
-    <%= label_tag :password %>
-    <%= password_field_tag :password%>
+
+  <div class="col-sm-6 col-md-4">
+    <div class="oauth-sign">
+      <div class="spotify">
+        <%= image_tag 'spotify.png' %>
+        <br>
+        <%= link_to 'Sign in with Spotify', '/auth/spotify' %>
+      </div>
+    </div>
+
   </div>
-  <%= submit_tag 'Sign in'%>
-<% end %>
+</div>
