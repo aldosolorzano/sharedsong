@@ -1,7 +1,7 @@
 
 require 'csv'
 TAB = "\t"
-path_to_csv = Rails.root.join('db', 'recording.csv')
+path_to_csv = Rails.root.join('db', 'recording-500.csv')
 CSV.foreach(path_to_csv, {:col_sep => TAB}) do |row|
   song = row[2]
   Song.create(
@@ -20,3 +20,5 @@ puts "#{Song.count} songs were created"
     password:   'abc'
   )
 end
+
+puts "#{User.count} users were created"
