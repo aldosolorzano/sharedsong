@@ -24,8 +24,14 @@ class User < ApplicationRecord
 
   def search_for_users search_term
     users = User.search(search_term)
-    users.to_a.map(&:full_name)
+    users.to_a.map do |user|
+      {
+        user_name: user.full_name,
+        id: user.id
+      }
+    end
   end
+
   def search_data
     {
       first_name: first_name,
@@ -76,5 +82,9 @@ class User < ApplicationRecord
         end
       end
       accepted_shares
+  end
+
+  def create_array_of_pending_friends
+    self.requested_friends
   end
   end
