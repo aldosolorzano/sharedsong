@@ -18,5 +18,6 @@ Rails.application.routes.draw do
       get :autocomplete
     end
   end
+  resources :friendships, only:[:new,:create]
 
 end

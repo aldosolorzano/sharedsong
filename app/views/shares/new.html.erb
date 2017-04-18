@@ -13,10 +13,10 @@
 <% if !@search_query.nil? %>
   <% if @search_query[:users].presence  %>
   <strong>Users: </strong>
-    <% @search_query[:users].each do |name| %>
+    <% @search_query[:users].each do |u| %>
       <span>
-        <%= link_to "@#{name}", root_path %>
-        <%= link_to 'Add to friends', root_path, class: "btn btn-success btn-xs" %>
+        <%= link_to "@#{u[:user_name]}" %>
+        <%= link_to 'Add to friends', friendships_path({user_id: u[:id]}), method: :post, class: "btn btn-success btn-xs" %>
       </span>
     <% end %>
   <% end %>
