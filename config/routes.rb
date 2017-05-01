@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:new,:create,:destroy]
+
   resources :sessions, only: [:new,:create] do
     delete :destroy, on: :collection
   end
@@ -18,5 +19,6 @@ Rails.application.routes.draw do
       get :autocomplete
     end
   end
+  resources :friendships, only:[:new,:create]
 
 end

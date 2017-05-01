@@ -29,11 +29,12 @@
           <ul class="nav navbar-nav">
             <% if user_signed_in? %>
               <% notification_arr = current_user.create_array_of_pending_shares %>
-              <% color = 'yellow' unless notification_arr.empty? %>
+              <% pending_friends = current_user.create_array_of_pending_friends %>
+              <% color = 'yellow' unless notification_arr.empty? || pending_friends.empty? %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="glyphicon glyphicon-flash" style="color:<%= color %>"></span></a>
               <ul class="dropdown-menu">
-                  <% if notification_arr.empty? %>
+                  <% if notification_arr.empty? && pending_friends.empty? %>
                     <li><a href="#">Start sharing songs</a></li>
                   <% else %>
                     <% notification_arr.each do |s| %>
@@ -45,19 +46,37 @@
                           <i class="glyphicon glyphicon-user"></i>
                           @<%= s[:user_creator] %>
                         </a>
-                        <%= link_to 'Accept', share_path(s[:share_id],
-                                              {status:'accept'}),
-                                              style: 'color:green',
-                                              method: :patch
-                                              %>
-                        <%= link_to 'Reject', share_path(s[:share_id],
-                                              {status:'reject'}),
-                                              style: 'color:red',
-                                              method: :patch
-                                              %>
+                        <div class="col-md-6">
+                          <%= link_to 'Accept', share_path(s[:share_id],
+                          {status:'accept'}),
+                          style: 'color:green',
+                          method: :patch
+                          %>
+                        </div>
+                        <div class="col-md-6">
+                          <%= link_to 'Reject', share_path(s[:share_id],
+                          {status:'reject'}),
+                          style: 'color:red',
+                          method: :patch
+                          %>
+                      </div>
                       </li>
-                      <li role="separator" class="divider"></li>
-                    <% end %>
+                      <hr>
+                      <% end %>
+                      <% pending_friends.each do |u| %>
+                        <li>
+                          <a href="#">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <%= u.full_name %>
+                            <%= link_to 'Accept friendship',
+                            friendships_path({status:"accept",user_id: u[:id]}), method: :post, class: "btn btn-success btn-xs" %>
+                            <%= link_to 'Decline friendship',
+                            friendships_path({status:"decline",user_id: u[:id]}), method: :post, class: "btn btn-danger btn-xs" %>
+                          </a>
+                        </li>
+
+                      <% end %>
+
                   <% end %>
                 <% end  %>
               </ul>
@@ -83,6 +102,7 @@
 </nav>
 
     <div class="container main">
+
       <%= notice || alert %>
       <%= yield %>
     </div>

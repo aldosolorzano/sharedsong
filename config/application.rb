@@ -21,7 +21,7 @@ module Sharesong
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-  config.assets.initialize_on_precompile = false
   RSpotify::authenticate('d6fbdd8b0dae4eb2a52544d9e0388a6b', '101dd59c39ea48ccbbd7611b339ab0cb')
+  config.browserify_rails.commandline_options = "-t [ babelify --presets [ es2015 ] --extensions .es6 ]"
   end
 end
