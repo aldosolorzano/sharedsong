@@ -7,7 +7,5 @@ class SongsController < ApplicationController
       misspellings: {below: 5}
     }).map(&:name)
 
-    puts songs
-    render json: songs
   end
 end

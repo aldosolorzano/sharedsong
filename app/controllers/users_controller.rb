@@ -11,6 +11,16 @@ class UsersController < ApplicationController
     redirect_to root_path,notice: "Thank you #{display_name} for signing in with spotify"
   end
 
+  def autocomplete
+    users = User.search(params[:query], {
+    fields: ["first_name", "last_name"],
+    limit: 10,
+    load: false,
+    misspellings: {below: 5}
+  }).map(&:name)
+
+  end
+
   def new
     @user = User.new
   end
