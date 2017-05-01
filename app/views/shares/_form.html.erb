@@ -15,11 +15,14 @@
   <div class="form-group">
     <%= s.label 'friends' %>
     <%= s.collection_select :shared_user_ids,
-                            current_user.friends,
+                            User.all,
                             :id, :first_name,
                             {},
-                            { multiple:true,
-                              class:'form-control chosen-select'} do |b| %>
+                            {
+                              multiple:true,
+                              class:'form-control chosen-select',
+                              id: 'userQuery'
+                            } do |b| %>
         <div class='user-wrapper'>
           <%= b.check_box %>
           <%= b.text %>

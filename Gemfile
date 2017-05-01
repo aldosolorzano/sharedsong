@@ -33,9 +33,9 @@ gem 'chosen-rails'
 gem 'has_friendship'
 gem 'rspotify'
 gem 'omniauth-spotify'
-gem 'has_friendship'
 gem 'searchkick'
 gem 'aasm'
+gem 'browserify-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
