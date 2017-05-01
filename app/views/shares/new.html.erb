@@ -16,7 +16,7 @@
     <% @search_query[:users].each do |u| %>
       <span>
         <%= link_to "@#{u[:user_name]}" %>
-        <%= link_to 'Add to friends', friendships_path({user_id: u[:id]}), method: :post, class: "btn btn-success btn-xs" %>
+        <%= link_to 'Add to friends', friendships_path({status:"request",user_id: u[:id]}), method: :post, class: "btn btn-success btn-xs" %>
       </span>
     <% end %>
   <% end %>
