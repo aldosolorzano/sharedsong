@@ -6,6 +6,6 @@ class SongsController < ApplicationController
       load: false,
       misspellings: {below: 5}
     }).map(&:name)
-
+    render json: songs
   end
 end
