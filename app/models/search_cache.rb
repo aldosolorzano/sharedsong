@@ -16,7 +16,7 @@ class SearchCache < ApplicationRecord
                 }
                 )
     end
-    songs
+    songs.slice(0,1)
   end
 
   def search_data
