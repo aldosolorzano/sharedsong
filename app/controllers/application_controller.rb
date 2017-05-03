@@ -10,15 +10,14 @@ class ApplicationController < ActionController::Base
         songs: connect_spotify(search_term),
         users: users_query
         }
-
-
-      redirect_to new_share_path({search_query:@query})
+        
+        redirect_to new_share_path({search_query:@query})
     else
       @query = {
         songs: song_query.first.create_array_of_songs,
         users: users_query
         }
-
+        
       redirect_to new_share_path({search_query:@query})
     end
   end
