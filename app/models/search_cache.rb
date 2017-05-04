@@ -16,7 +16,12 @@ class SearchCache < ApplicationRecord
                 }
                 )
     end
-    songs
+    if songs.length < 10
+      slice_num = songs.length
+    else
+      slice_num = 10
+    end
+    songs.slice(0,slice_num)
   end
 
   def search_data

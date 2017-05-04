@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html>
   <head>
     <title>Sharesong</title>
@@ -30,7 +30,9 @@
             <% if user_signed_in? %>
               <% notification_arr = current_user.create_array_of_pending_shares %>
               <% pending_friends = current_user.create_array_of_pending_friends %>
-              <% color = 'yellow' unless notification_arr.empty? || pending_friends.empty? %>
+              <% if !notification_arr.empty? || !current_user.pending_friends.empty? %>
+                <% color = 'yellow' %>
+              <% end %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="glyphicon glyphicon-flash" style="color:<%= color %>"></span></a>
               <ul class="dropdown-menu">
