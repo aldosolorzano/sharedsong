@@ -30,6 +30,7 @@
             <% if user_signed_in? %>
               <% notification_arr = current_user.create_array_of_pending_shares %>
               <% pending_friends = current_user.create_array_of_pending_friends %>
+              <% color = "white" %>
               <% if !notification_arr.empty? || !current_user.pending_friends.empty? %>
                 <% color = 'yellow' %>
               <% end %>
