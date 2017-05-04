@@ -16,7 +16,7 @@
     <%= s.label 'friends' %>
     <%= s.collection_select :shared_user_ids,
                             User.all,
-                            :id, :first_name,
+                            :id, :full_name,
                             {},
                             {
                               multiple:true,

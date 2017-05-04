@@ -12,16 +12,26 @@
 
 <% if !@search_query.nil? %>
   <% if @search_query[:users].presence  %>
-  <strong>Users: </strong>
+  <strong><i class="glyphicon glyphicon-user"></i> Users: </strong>
     <% @search_query[:users].each do |u| %>
       <span>
         <%= link_to "@#{u[:user_name]}" %>
-        <% if current_user.friends? u[:id]%>
+        <% if current_user.relation?(u[:id]) == "friends" %>
           <%= link_to 'Friends',friendships_path,
-                      class: "btn btn-success btn-xs",
-                      disabled:true %>
+          class: "btn btn-success btn-xs",
+          disabled:true %>
+        <% elsif current_user.relation?(u[:id]) == "requested" %>
+        <%= link_to 'Accept friendship',
+                    friendships_path({status:"accept",user_id: u[:id]}),
+                                      method: :post,
+                                      class: "btn btn-success btn-xs" %>
+
+        <% elsif current_user.relation?(u[:id]) == "pending" %>
+          <%= link_to 'Pending',friendships_path,
+          method: :post,
+          class: "btn btn-warning btn-xs",disabled:true %>
         <% else %>
-          <%= link_to 'Add to friends', friendships_path({status:"request",user_id: u[:id]}), method: :post, class: "btn btn-success btn-xs requestFriendship" %>
+          <%= link_to 'Add to friends', friendships_path({status:"request",user_id: u[:id]}), method: :post, class: "btn btn-info btn-xs requestFriendship" %>
         <% end %>
       </span>
     <% end %>
