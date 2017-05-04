@@ -30,6 +30,7 @@
             <% if user_signed_in? %>
               <% notification_arr = current_user.create_array_of_pending_shares %>
               <% pending_friends = current_user.create_array_of_pending_friends %>
+              <% color = "white" %>
               <% if !notification_arr.empty? || !current_user.pending_friends.empty? %>
                 <% color = 'yellow' %>
               <% end %>
@@ -83,6 +84,13 @@
                 <% end  %>
               </ul>
             </li>
+            <% if user_signed_in? %>
+            <li>
+              <a href="<%= edit_user_path(current_user) %>">
+                <i class="glyphicon glyphicon-user"></i>
+              </a>
+            </li>
+            <% end %>
             <li>
               <a href="<%= new_share_path %>" class="btn btn-danger">
                 <i style="color:white"class="glyphicon glyphicon-search"></i>

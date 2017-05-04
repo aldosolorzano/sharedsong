@@ -32,6 +32,26 @@ class User < ApplicationRecord
     end
   end
 
+  def relation? id
+    unknown_user = User.find id
+    if self.friends_with?(unknown_user)
+      "friends"
+    else
+      status = "unknown"
+      self.requested_friends.map do |e|
+        if e == unknown_user
+          status = "requested"
+        end
+      end
+      self.pending_friends.map do |e|
+        if e == unknown_user
+          status = "pending"
+        end
+      end
+      status
+    end
+  end
+
   def search_data
     {
       first_name: first_name,

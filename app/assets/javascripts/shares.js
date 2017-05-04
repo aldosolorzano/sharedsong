@@ -49,6 +49,11 @@ $(document).ready(function(){
      $(target).toggleClass(pauseClass).addClass(playClass)
      $(audio).trigger("pause")
    }
- })
+ });
 
+ $('.requestFriendship').on('click', function(event){
+   const {target} = event;
+   $(target).attr('disabled', function(_, attr){ return !attr});
+   $(target).html('Requested');
+ })
 })
