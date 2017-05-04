@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :likes, only: [:create,:destroy,:update]
   end
 
-  resources :users, only: [:new,:create,:destroy]
+  resources :users
 
   resources :sessions, only: [:new,:create] do
     delete :destroy, on: :collection
@@ -20,5 +20,5 @@ Rails.application.routes.draw do
     end
   end
   resources :friendships, only:[:new,:create]
-
+  resources :password_reset, only:[:new,:create]
 end
