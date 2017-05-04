@@ -7,18 +7,7 @@ class UsersController < ApplicationController
 
     user ||= User.create_from_spotify_oauth(spotify_user, display_name)
     session[:user_id] = user.id
-    # render json: spotify_user
     redirect_to root_path,notice: "Thank you #{display_name} for signing in with spotify"
-  end
-
-  def autocomplete
-    users = User.search(params[:query], {
-    fields: ["first_name", "last_name"],
-    limit: 10,
-    load: false,
-    misspellings: {below: 5}
-  }).map(&:name)
-
   end
 
   def new

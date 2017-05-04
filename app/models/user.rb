@@ -32,6 +32,11 @@ class User < ApplicationRecord
     end
   end
 
+  def friends? id
+    unknown_user = User.find id
+    self.friends_with?(unknown_user)
+  end
+
   def search_data
     {
       first_name: first_name,
